@@ -1,0 +1,34 @@
+{% extends 'basic.html' %}
+
+{% block nav %}
+	{% include 'front/partials/navbar.html' %}
+{% endblock %}
+
+{% block content %}
+	<form action="{{ url_for('auth.register.register', alias=company.alias) }}" method="post">
+		<fieldset>
+			{{ form.hidden_tag() }}
+			{{ form.username.label }}
+			{{ form.username(size=50, class='form-input-field') }}
+			{% set field_errors = form.username.errors %}
+			{% include 'partials/form_field_error.html' %}
+			{{ form.email.label }}
+			{{ form.email(size=50, class='form-input-field') }}
+			{% set field_errors = form.email.errors %}
+			{% include 'partials/form_field_error.html' %}
+			{{ form.password.label }}
+			{{ form.password(size=50, class='form-input-field') }}
+			{% set field_errors = form.password.errors %}
+			{% include 'partials/form_field_error.html' %}
+			{{ form.repeat_password.label }}
+			{{ form.repeat_password(size=50, class='form-input-field') }} 
+			{% set field_errors = form.repeat_password.errors %}
+			{% include 'partials/form_field_error.html' %}
+			{{ form.submit(class='submit-btn') }}
+		</fieldset>
+	</form>
+{% endblock %}
+
+{% block footer %}
+	{% include 'front/partials/footer.html' %}
+{% endblock %}

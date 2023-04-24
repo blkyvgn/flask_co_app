@@ -1,0 +1,29 @@
+<div class="pagination">
+    {% if pagin.has_prev %}
+        <span>
+            <a class='page-number' href="{{ href_url }}?page={{pagin.prev_num}}">
+                {{ '<<<' }}
+            </a>
+        </span>
+    {% endif %}
+
+    {% for number in pagin.iter_pages() %}
+        {% if pagin.page != number %}
+            <span>
+                <a class='page-number' href="{{ href_url }}?page={{number}}">
+                {{ number }}
+                </a>
+            </span>
+        {% else %}
+            <span class='current-page-number'>{{ number }}</span>
+        {% endif %}
+    {% endfor %}
+
+    {% if pagin.has_next %}
+        <span>
+            <a class='page-number' href="{{ href_url }}?page={{pagin.next_num}}">
+                {{ '>>>' }}
+            </a>
+        </span>
+    {% endif %}
+</div>

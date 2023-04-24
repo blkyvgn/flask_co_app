@@ -1,0 +1,25 @@
+{% extends 'basic.html' %}
+
+{% block nav %}
+	{% include 'front/partials/navbar.html' %}
+{% endblock %}
+
+{% block content %}
+	<h1>{{ _('Article') }}</h1>
+
+	<img width="80" height="80" src="{{ url_for('static', filename=article.thumb|url_or_default) }}">
+	<strong>{{ article.name }}</strong>
+
+	<h4>Text</h4>
+	<p>	
+		{% if article_body %}
+			{{ article_body.body|safe }}
+		{% else %}
+			{{ _('No article body for language') }}:{{ current_language }}
+		{% endif %}
+	</p>
+{% endblock %}
+
+{% block footer %}
+	{% include 'front/partials/footer.html' %}
+{% endblock %}

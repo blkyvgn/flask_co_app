@@ -1,0 +1,40 @@
+{% extends 'basic.html' %}
+
+{% block nav %}
+	{% include 'front/partials/navbar.html' %}
+{% endblock %}
+
+{% block content %}
+	<h1>Blog</h1>
+
+	<h4>{{ _('Categories') }}</h4>
+	<h5><a href="{{ url_for('front.cat.category_list', alias=company.alias) }}">{{ _('All categories') }}</a></h5>
+	{% for category, articles_count in categories %}
+		<img width="80" height="80" src="{{ url_for('static', filename=category.thumb|url_or_default) }}">
+		<strong>{{ category.name }}</strong>
+		{% if articles_count %}
+			<span>({{ articles_count }})</span>
+		{% endif %}
+		<a href="{{ url_for('front.cat.category_articles', alias=company.alias, cat_id=category.id) }}">
+			<strong>{{ _('Articles') }}</strong>
+		</a>
+	{% endfor %}
+
+	<h4>{{ _('Articles') }}</h4>
+	<h5><a href="{{ url_for('front.art.article_list', alias=company.alias) }}">{{ _('All articles') }}</a></h5>
+	{% for article, comments_count in articles %}
+		<img width="80" height="80" src="{{ url_for('static', filename=article.thumb|url_or_default) }}">
+		<strong>{{ article.name }}</strong>
+		{% if comments_count %}
+			<span>({{ comments_count }})</span>
+		{% endif %}
+		<a href="{{ url_for('front.art.article_item', alias=company.alias, art_id=article.id) }}">
+			<strong>{{ _('Show') }}</strong>
+		</a>
+	{% endfor %}
+
+{% endblock %}
+
+{% block footer %}
+	{% include 'front/partials/footer.html' %}
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'basic.html' %}
+
+{% block nav %}
+	{% include 'back/partials/navbar.html' %}
+{% endblock %}
+
+{% block content %}
+	<h1>{{ _('Edit') }}</h1>
+	<a class="block" href="{{ url_for('back.art.article_list', alias=company.alias) }}">
+		<strong>{{ _('Articles') }}</strong>
+	</a>
+
+	{% set item = old|default(article, true) %}
+	<form action="{{ url_for('back.art.article_update', alias=company.alias,  art_id=article.id) }}" 
+		method="post" enctype="multipart/form-data">
+		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+		{% include 'back/article/partials/form.html' %}
+		<button type="submit">{{ _('Edit') }}</button>
+	</form>
+
+{% endblock %}
+
+{% block footer %}
+	{% include 'back/partials/footer.html' %}
+{% endblock %}

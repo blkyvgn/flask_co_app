@@ -1,0 +1,7 @@
+<h1>400</h1>
+<h3>{{ msg }}</h3>
+{% if info %}
+{% for key, value in info.items() %}
+	<p><strong>{{ key }}</strong>:{{ value }}</p>
+{% endfor %}
+{% endif %}

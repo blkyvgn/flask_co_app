@@ -1,0 +1,6 @@
+<header id="navbar" class="navbar">
+	<a href="{{ url_for('front.home.home', alias=company.alias) }}">{{ _('Home') }}</a>
+	<a href="{{ url_for('back.dashboard.dashboard', alias=company.alias) }}">{{ _('Dashboard') }}</a>
+	{{ user.email }}
+	<a href="{{ url_for('auth.login.logout', alias=company.alias) }}">logout</a>
+</header>

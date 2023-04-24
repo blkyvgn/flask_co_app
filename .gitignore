@@ -1,0 +1,14 @@
+/venv
+/.pytest_cache
+/.idea
+**/__pycache__/
+/public/media/*
+/migrations
+/instance
+
+.env
+
+flask_co_db.sqlite3
+
+info.txt
+.DS_Store

@@ -1,0 +1,30 @@
+{% extends 'basic.html' %}
+
+{% block nav %}
+	{% include 'back/partials/navbar.html' %}
+{% endblock %}
+
+{% block content %}
+	<h1>{{ _('Articles') }}</h1>
+	<a class="block" href="{{ url_for('back.art.article_create', alias=company.alias) }}">{{ _('New') }}</a>
+
+	{% for article in pagination_articles.items %} 
+		<img width="80" height="80" src="{{ url_for('static', filename=article.thumb|url_or_default) }}">
+		<strong>{{ article.name }}</strong>
+		<a href="{{ url_for('back.art.article_edit', alias=company.alias,  art_id=article.id) }}">
+			{{ _('Edir') }}
+		</a>
+		<a href="{{ url_for('back.art.article_destroy', alias=company.alias,  art_id=article.id) }}">
+			{{ _('Delete') }}
+		</a>
+	{% endfor %}
+
+	{% set pagin = pagination_articles %}
+	{% set href_url = url_for('back.art.article_list', alias=company.alias) %}
+	{% include 'partials/pagination.html' %}
+
+{% endblock %}
+
+{% block footer %}
+	{% include 'back/partials/footer.html' %}
+{% endblock %}

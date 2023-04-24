@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html data-company="{{ company.alias }}" data-theme="{{ company.options.theme|default('light') }}"> 
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/png" href="#">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;500;700&display=swap" 
+        rel="stylesheet">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/media.css') }}">
+        <script type="text/javascript" src="{{ url_for('static', filename='js/lib/theme.js') }}"></script>
+        <title>Title</title> 
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+    </head>
+    <body> 
+        {% include 'partials/message.html' %}
+        {% block nav %}{% endblock %}
+        <header id="header" class="header"></header>
+        <main id="main" class="main">
+            {% block content %}{% endblock %} 
+        </main>
+        {% block footer %}{% endblock %}
+        <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+        {% block page_js_script %}{% endblock %} 
+    </body>
+</html>

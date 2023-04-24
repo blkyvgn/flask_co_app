@@ -1,0 +1,34 @@
+{% extends 'basic.html' %}
+
+{% block nav %}
+	{% include 'front/partials/navbar.html' %}
+{% endblock %}
+
+{% block content %}
+	<h1>{{ _('Category articles') }}</h1>
+	
+	{% set item, articles_count = category %}
+	<img width="80" height="80" src="{{ url_for('static', filename=item.thumb|url_or_default) }}">
+	<strong>{{ item.name|in_lang_or_default(current_language) }}</strong>
+	{% if articles_count %}
+		<span>({{ articles_count }})</span>
+	{% endif %}
+
+	<h4>{{ _('Articles') }}</h4>
+	{% for article in pagination_articles.items %}
+		<img width="80" height="80" src="{{ url_for('static', filename=article.thumb|url_or_default) }}">
+		<strong>{{ article.name|in_lang_or_default(current_language) }}</strong>
+		<a href="{{ url_for('front.art.article_item', alias=company.alias, art_id=article.id) }}">
+			<strong>{{ _('Show') }}</strong>
+		</a>
+	{% endfor %}
+
+	{% set pagin = pagination_articles %}
+	{% set href_url = url_for('front.cat.category_articles', alias=company.alias, cat_id=item.id) %}
+	{% include 'partials/pagination.html' %}
+
+{% endblock %}
+
+{% block footer %}
+	{% include 'front/partials/footer.html' %}
+{% endblock %}
