@@ -9,6 +9,8 @@ from app.extensions import (
 	cache,
 	api,
 	jwt,
+	marshmallow,
+	sock,
 )
 
 def configuration_extensions(app):
@@ -22,5 +24,8 @@ def configuration_extensions(app):
 	cache.init_app(app)
 	api.init_app(app)
 	jwt.init_app(app)
+	marshmallow.init_app(app)
+	sock.init_app(app)
+
 
 

@@ -15,7 +15,7 @@
 			{{ form.hidden_tag() }}
 			{#{{ form.name.label }}
 			{{ form.name(size=50, class='form-input-field') }}#}
-			<input type="text" name="{{ form.name.name }}" value="{{ form.name.data|in_lang_or_default(current_language) }}">
+			<input type="text" name="{{ form.name.name }}" value="{{ form.name.data }}">
 			{% set field_errors = form.name.errors %}
 			{% include 'partials/form_field_error.html' %}
 			{{ form.thumb.label }}

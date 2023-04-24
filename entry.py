@@ -1,7 +1,7 @@
 from app import create_app 
 # from app.services.celery.celery import celery
 
-app, cel, api = create_app()
+app, cel = create_app()
 # cel = celery
 
 if __name__ == '__main__': 

@@ -6,5 +6,5 @@ from app.models import Account
 class AccountSchema(mm.SQLAlchemyAutoSchema):
 	class Meta:
 		model = Account
-		load_only = ('password',)
+		load_only = ('username', 'password',)
 		dump_only = ('id', 'is_activated')

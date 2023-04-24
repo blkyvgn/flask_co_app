@@ -17,8 +17,9 @@ from app.factories import (
 	registration_filters,
 	setup_context,
 )
+from app.http.api import api, jwt
+from app.http.ws.sock import sock
 from app.services.celery.celery import celery
-from app.http.api import api
 
 def create_app():
 	''' Creation and configuration flask app instance ''' 
@@ -39,4 +40,4 @@ def create_app():
 		configuration_extensions(app)
 		configuration_services(app)
 
-	return app, celery, api
+	return app, celery

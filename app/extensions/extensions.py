@@ -46,3 +46,6 @@ jwt = JWTManager()
 
 from flask_marshmallow import Marshmallow
 marshmallow = Marshmallow()
+
+from flask_sock import Sock
+sock = Sock()

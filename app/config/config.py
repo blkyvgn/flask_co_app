@@ -24,6 +24,8 @@ class DevelopmentConfig(Config):
     THUMBNAIL_WIDTH = 80
     MAX_CONTENT_LENGTH = 16 * 10000 * 10000
 
+    SOCK_SERVER_OPTIONS = {'ping_interval': 25}
+
     IMAGE_WIDTH = {
         'THUMBNAIL': 60,
         'SHOWCASE': 220,

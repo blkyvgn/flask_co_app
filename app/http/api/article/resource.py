@@ -12,6 +12,7 @@ article_schema = ArticleSchema()
 article_list_schema = ArticleSchema(many=True)
 article_body_list_schema = ArticleBodySchema(many=True)
 
+
 class ArticleResource(Resource):
 	@classmethod
 	def get(cls, alias: str, pk: int):

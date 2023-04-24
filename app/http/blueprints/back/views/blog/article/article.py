@@ -160,7 +160,6 @@ def article_update(alias, art_id):
 					body=request.form.get('body', '')
 				)
 			)
-			article_body.save()
 		return redirect(url_for('back.art.article_list', alias=alias))
 	return render_template('back/article/edit.html',
 		article = article,
