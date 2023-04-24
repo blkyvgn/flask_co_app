@@ -9,4 +9,5 @@ from .extensions import (
 	cache,
 	api,
 	jwt,
+	marshmallow,
 )

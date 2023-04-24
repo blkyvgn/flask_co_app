@@ -17,10 +17,10 @@ def company_middleware(app):
 
 	@app.before_request 
 	def gcompany():
-		exclusion_list = ['static_root', 'static']
+		exclusion_list = ['static_root', 'static', 'api']
 		if request.endpoint not in exclusion_list:
 			if request.view_args:
-				alias = request.view_args.get('alias', None)
+				alias = request.view_args.get('alias', cfg('COMPANY_ALIAS'))
 				# company = get_company(alias)
 				company = Company.get_from_cache(alias)
 				if company is None:

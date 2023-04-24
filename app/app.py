@@ -17,6 +17,9 @@ from app.factories import (
 	registration_filters,
 	setup_context,
 )
+from app.services.celery.celery import celery
+from app.http.api import api
+
 def create_app():
 	''' Creation and configuration flask app instance ''' 
 	app = AppFlask(__name__,
@@ -24,6 +27,7 @@ def create_app():
 		static_url_path='/',
 		static_folder='../public'
 	)
+
 	with app.app_context():
 		configuration_app(app, Configuration())
 		registration_blueprints(app, blueprints)
@@ -34,4 +38,5 @@ def create_app():
 		registration_filters(app, jinja_filters)
 		configuration_extensions(app)
 		configuration_services(app)
-	return app
+
+	return app, celery, api

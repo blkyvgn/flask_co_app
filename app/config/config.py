@@ -11,6 +11,7 @@ class DevelopmentConfig(Config):
     APP_NAME = env.get('APP_NAME', 'Flask App')
     DEBUG = env.get('DEBUG', False)
     SECRET_KEY = '*** change me please ***'
+    COMPANY_ALIAS = 'grkr'
 
     SQLALCHEMY_DATABASE_URI = env.get('SQLITE_DATABASE_URI', 'sqlite:///./flask_co_db.sqlite3')
     SQLALCHEMY_TRACK_MODIFICATIONS = False

@@ -16,7 +16,7 @@ from app.vendors.mixins.model import (
 )
 
 
-class Account(BaseModel, UserMixin, ValidMixin, TimestampsMixin): 
+class Account(BaseModel, UserMixin, ValidMixin, HelpersMixin, TimestampsMixin): 
 	__tablename__ = 'accounts'
 	
 	id = db.Column(

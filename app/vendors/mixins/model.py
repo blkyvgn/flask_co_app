@@ -52,7 +52,7 @@ class HelpersMixin:
 		return name
 
 	@classmethod
-	def get_first_by_filter(cls, _or=False, **kwargs) -> 'BaseModel':
+	def get_first_by_filter(cls, _or=False, **kwargs):
 		if not _or:
 			item_select = db.select(cls).filter_by(**kwargs)
 		else:
@@ -60,6 +60,11 @@ class HelpersMixin:
 			item_select = db.select(cls).filter(or_(False, *filters))
 		item = db.session.execute(item_select).scalar()
 		return item
+
+	@classmethod
+	def get_all(cls, **kwargs):
+		select = db.select(cls).filter_by(**kwargs)
+		return db.session.execute(select).scalars().all()
 
 
 class ImgMixin:
