@@ -1,6 +1,7 @@
 <header id="navbar" class="navbar">
 	<a href="{{ url_for('front.home.home', alias=company.alias) }}">{{ _('Home') }}</a>
 	<a href="{{ url_for('front.blog.blog', alias=company.alias) }}">{{ _('Blog') }}</a>
+	<a href="{{ url_for('front.chat.chat', alias=company.alias) }}">{{ _('Chat') }}</a>
 
 	<span>{{ current_language }}</span>
 	{% for key, lang in config.LANGUAGES.items() %}

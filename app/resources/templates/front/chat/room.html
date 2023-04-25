@@ -1,0 +1,92 @@
+{% extends 'basic.html' %}
+
+{% block nav %}
+	{% include 'front/partials/navbar.html' %}
+{% endblock %}
+
+{% block content %}
+	<h1>Chat room ({{ company.alias }})</h1>
+
+	<br>
+	<ul>
+		{% for user in users %}
+		<li id="usr-{{user.username}}">{{ user.username }}</li>
+		{% endfor %}
+	</ul>
+	<br>
+		<input id="username" type="text" name="username">
+		<button id="join-btn">Connect</button>
+		<button id="leave-btn">Leave</button>
+		<br>
+		<textarea id="messages"></textarea>
+		<br>
+		<input type="text" id="message">
+		<button id="sendMsgBtn">Send</button>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+		<script type="text/javascript" charset="utf-8">
+			var socket = io({autoConnect:false});
+			// const namaspace = '/msgs'
+			const room_id = '{{ room.id }}'; 
+
+			let msgData = {room:room_id}
+			let userName = null
+			let messageInput = document.querySelector('#message');
+			const joinBtn = document.querySelector('#join-btn');
+			joinBtn.addEventListener('click', function(){
+				userName = document.querySelector('#username').value;
+				if (userName != '') {
+					const wsUrl = location.protocol+'//'+document.domain+':'+location.port;//+namaspace
+					socket.connect(wsUrl);
+					socket.on('connect', function(){
+						msgData.username = userName
+						msgData.msg = 'user joined'
+						socket.emit('user_join', msgData);
+					});
+				}
+			});
+
+			socket.on('room_join', function(data) {
+				const userElem = document.querySelector('#usr-'+data['username']);
+				userElem.style.color = 'green';
+			});
+
+			let messagesTextArea = document.querySelector('#messages');
+			const sendMsgBtn = document.querySelector('#sendMsgBtn');
+			sendMsgBtn.addEventListener('click', function(){
+				userName = document.querySelector('#username').value;
+				let message = messageInput.value;
+				const data = {room: room_id, username:userName, 'message': message};
+				socket.emit('user_message', data);
+			});
+
+			socket.on('chat', function(data){
+				let messageStr = `${data.username}:${data.message}\n`
+				messagesTextArea.value += messageStr
+				messageInput.value = '';
+			});
+
+			socket.on('room_leave', function(data){
+				const userElem = document.querySelector('#usr-'+data['username']);
+				userElem.style.color = 'red';
+			});
+
+			socket.on('disconnect', function(){
+				socket.close();
+				alert('Disconnec server chat');
+			});
+
+			const leaveBtn = document.querySelector('#leave-btn');
+			leaveBtn.addEventListener('click', function(){
+				userName = document.querySelector('#username').value;
+				const data = {room: room_id, username:userName};
+				socket.emit('user_leave', data);
+				socket.close();
+			});
+
+		</script>
+	<br>
+{% endblock %}
+
+{% block footer %}
+	{% include 'front/partials/footer.html' %}
+{% endblock %}

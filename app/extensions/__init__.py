@@ -10,5 +10,5 @@ from .extensions import (
 	api,
 	jwt,
 	marshmallow,
-	sock,
+	socketio,
 )

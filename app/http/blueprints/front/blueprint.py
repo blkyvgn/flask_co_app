@@ -5,6 +5,7 @@ from .views.serv import bp_serv
 from .views.blog.blog import bp_blog
 from .views.blog.article import bp_art
 from .views.blog.category import bp_cat
+from .views.chat.chat import bp_chat
 
 front_blueprints = [
 	bp_home,
@@ -12,6 +13,7 @@ front_blueprints = [
 	bp_blog,
 	bp_art,
 	bp_cat,
+	bp_chat,
 ]
 
 def bp_front():

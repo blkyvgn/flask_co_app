@@ -1,0 +1,20 @@
+{% extends 'basic.html' %}
+
+{% block nav %}
+	{% include 'front/partials/navbar.html' %}
+{% endblock %}
+
+{% block content %}
+	<h1>Chat list ({{ company.alias }})</h1>
+
+	{% for room in rooms %}
+		<a class="block" href="{{ url_for('front.chat.room', alias=company.alias, pk=room.id) }}">
+			<strong>{{ room.name }}</strong>
+		</a>
+	{% endfor %}
+
+{% endblock %}
+
+{% block footer %}
+	{% include 'front/partials/footer.html' %}
+{% endblock %}

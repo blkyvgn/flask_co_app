@@ -10,7 +10,7 @@ from app.extensions import (
 	api,
 	jwt,
 	marshmallow,
-	sock,
+	socketio,
 )
 
 def configuration_extensions(app):
@@ -25,7 +25,7 @@ def configuration_extensions(app):
 	api.init_app(app)
 	jwt.init_app(app)
 	marshmallow.init_app(app)
-	sock.init_app(app)
+	socketio.init_app(app)
 
 
 
