@@ -16,6 +16,13 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = env.get('SQLITE_DATABASE_URI', 'sqlite:///./flask_co_db.sqlite3')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    PROPAGATE_EXCEPTIONS = True
+    JWT_BLACKLIST_ENABLED = True  # enable blacklist feature
+    JWT_BLACKLIST_TOKEN_CHECKS = [
+        'access',
+        'refresh',
+    ]
+
     LOGIN_MESSAGE = None
 
     # UPLOAD_FOLDER = 'app/storage/media' - set link from dir public to dir app/storage
