@@ -1,22 +1,51 @@
-<header id="navbar" class="navbar">
-	<a href="{{ url_for('front.home.home', alias=company.alias) }}">{{ _('Home') }}</a>
-	<a href="{{ url_for('front.blog.blog', alias=company.alias) }}">{{ _('Blog') }}</a>
-	<a href="{{ url_for('front.chat.chat', alias=company.alias) }}">{{ _('Chat') }}</a>
-
-	<span>{{ current_language }}</span>
-	{% for key, lang in config.LANGUAGES.items() %}
-		<a href="{{ url_for('front.serv.change_locale', alias=company.alias, lang=key) }}">
-			{{ lang }}
-		</a>
-	{% endfor %}
-
-	{% if user.is_anonymous %}
-		<a href="{{ url_for('back.dashboard.dashboard', alias=company.alias) }}">{{ _('SignIn') }}</a>
-		<a href="{{ url_for('auth.register.register', alias=company.alias) }}">{{ _('SignUp') }}</a>
-	{% else %}
-		{{ user.email }}
-		<a href="{{ url_for('auth.login.logout', alias=company.alias) }}">{{ _('SignOut') }}</a>
-		<a href="{{ url_for('back.dashboard.dashboard', alias=company.alias) }}">{{ _('Dashboard') }}</a>
-	{% endif %}
+<header id="header" class="header {% if 'home' in request.url %}header-main{% endif %}">
+	<div class="container">
+		<div class="header__inner">
+			<a class="logo" href="{{ url_for('front.home.home', alias=company.alias) }}">
+				<img class="logo_img" 
+					src="{{ url_for('static', filename=company.logo|url_or_default('LOGO')) }}"
+					alias="logo"
+				>
+			</a>
+			<nav class="menu">
+				<ul class="menu__list">
+					<li class="menu__list-item">
+						<a href="{{ url_for('front.home.home', alias=company.alias) }}">{{ _('Home') }}</a>
+					</li>
+					<li class="menu__list-item">
+						<a href="{{ url_for('front.blog.blog', alias=company.alias) }}">{{ _('Blog') }}</a>
+					</li>
+					<li class="menu__list-item">
+						<a href="{{ url_for('front.chat.chat', alias=company.alias) }}">{{ _('Chat') }}</a>
+					</li>
+					<!-- <li class="menu__list-item">
+						<a href="{{ url_for('front.home.contact', alias=company.alias) }}">{{ _('Contact as') }}</a>
+					</li> -->
+					<li class="menu__list-item">
+						<div class="pointer" onclick="cssClass.toggle('#languages-list', 'hidden')">{{ current_language }}</div>
+						<div class="relative">
+							<div id="languages-list" class="absolute hidden">
+								{% for key, lang in config.LANGUAGES.items() %}
+									<a href="{{ url_for('front.serv.change_locale', alias=company.alias, lang=key) }}">
+										{{ lang }}
+									</a>
+								{% endfor %}
+							</div>
+						</div>
+					</li>
+					<li class="menu__list-item">
+						{% if user.is_anonymous %}
+							<a href="{{ url_for('back.dashboard.dashboard', alias=company.alias) }}">{{ _('SignIn') }}</a>
+							<a href="{{ url_for('auth.register.register', alias=company.alias) }}">{{ _('SignUp') }}</a>
+						{% else %}
+							{{ user.email }}
+							<a href="{{ url_for('auth.login.logout', alias=company.alias) }}">{{ _('SignOut') }}</a>
+							<a href="{{ url_for('back.dashboard.dashboard', alias=company.alias) }}">{{ _('Dashboard') }}</a>
+						{% endif %}
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
 </header>
 

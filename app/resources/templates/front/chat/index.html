@@ -5,14 +5,11 @@
 {% endblock %}
 
 {% block content %}
-	<h1>Chat list ({{ company.alias }})</h1>
-
 	{% for room in rooms %}
 		<a class="block" href="{{ url_for('front.chat.room', alias=company.alias, pk=room.id) }}">
-			<strong>{{ room.name }}</strong>
+			<h1>{{ room.name }}</h1>
 		</a>
 	{% endfor %}
-
 {% endblock %}
 
 {% block footer %}

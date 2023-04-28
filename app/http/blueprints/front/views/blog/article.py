@@ -31,7 +31,6 @@ def article_list(alias):
 		per_page=cfg('NUMBER_PER_PAGE'), 
 		max_per_page=cfg('MAX_PER_PAGE')
 	)
-	print(pagination_articles.items)
 	return render_template('front/blog/article/list.html',
 		pagination_articles = pagination_articles,
 	)
@@ -56,6 +55,8 @@ def article_item(alias, art_id):
 		filter_by(id=int(art_id)).\
 		filter_by(is_valid=True)
 	article = db.session.execute(article_select).scalar()
+	if article is None:
+		return abort(404)
 	
 	body_select = db.select(
 			ArticleBody
@@ -63,8 +64,17 @@ def article_item(alias, art_id):
 		filter_by(article_id=article.id).\
 		filter_by(lang=g.current_language)
 	article_body = db.session.execute(body_select).scalar()
+
+	select_category = db.select(Category).\
+		filter_by(id=int(article.category_id)).\
+		filter_by(is_valid=True).\
+		filter_by(company_id=g.company.id)
+	category = db.session.execute(select_category).scalar()
+	if category is None:
+		return abort(404)
 	
 	return render_template('front/blog/article/item.html',
+		category = category,
 		article = article,
 		article_body = article_body,
 	)

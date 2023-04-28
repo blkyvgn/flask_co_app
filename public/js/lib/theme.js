@@ -26,7 +26,7 @@ const themes = {
     },
     dark: {
         '--bg-html-color': '#FFFFFF',
-        '--bg-body-color': '#C0C0C0',
+        '--bg-body-color': '#909090',
         '--bg-content-color': '#606060',
         '--bg-nav-color': '#404040',
         '--bg-footer-color': '#404040',

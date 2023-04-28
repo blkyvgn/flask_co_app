@@ -5,19 +5,21 @@
 {% endblock %}
 
 {% block content %}
-	<h1>{{ _('Article') }}</h1>
-
-	<img width="80" height="80" src="{{ url_for('static', filename=article.thumb|url_or_default) }}">
-	<strong>{{ article.name }}</strong>
-
-	<h4>Text</h4>
-	<p>	
+	<div class="flex col gap-30">
+		<h2 class="text-right">{{ category.name }}</h2>
+		<img class="align-self-end article__image" src="{{ url_for('static', filename=category.thumb|url_or_default) }}">
+	</div>
+	<div class="flex col gap-30">
+		<h2 class="text-center">{{ article.name }}</h2>
+		<img class="article__image" src="{{ url_for('static', filename=article.thumb|url_or_default) }}">
+	</div>
+	<div class="article__body">	
 		{% if article_body %}
 			{{ article_body.body|safe }}
 		{% else %}
 			{{ _('No article body for language') }}:{{ current_language }}
 		{% endif %}
-	</p>
+	</div>
 {% endblock %}
 
 {% block footer %}

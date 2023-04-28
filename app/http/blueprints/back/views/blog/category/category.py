@@ -72,7 +72,7 @@ def category_store(alias):
 			company_id = g.company.id,
 		)
 		if form.thumb.data:
-			thumb = category.save_img(form.thumb.data, width=cfg('IMAGE_WIDTH.THUMBNAIL'))
+			thumb = category.save_img(form.thumb.data, width=cfg('IMAGE_WIDTH.SHOWCASE'))
 		category.thumb = thumb
 		if not category.save():
 			flash(_l(u'Category not saved', category='warning'))

@@ -7,20 +7,39 @@
 {% block content %}
 	<h4>{{ _('Categories') }}</h4>
 
-	{% for category in pagination_categories.items %}
-		<img width="80" height="80" src="{{ url_for('static', filename=category.thumb|url_or_default) }}">
-		<strong>{{ category.name|in_lang_or_default(current_language) }}</strong>
-		{% if art_count %}
-			<span>({{ art_count }})</span>
-		{% endif %}
-		<a href="{{ url_for('front.cat.category_articles', alias=company.alias, cat_id=category.id) }}">
-			<strong>{{ _('Articles') }}</strong>
-		</a>
-	{% endfor %}
-
-	{% set pagin = pagination_categories %}
-	{% set href_url = url_for('front.cat.category_list', alias=company.alias) %}
-	{% include 'partials/pagination.html' %}
+	<div class="blog">
+		<h2 class="text-center">{{ _('Categories') }}</h2>
+		<div class="container">
+			<section class="blog__categories">
+				<div class="blog_categories_items">
+					{% for category in pagination_categories.items %}
+					<div class="category__item">
+						<img class="category__item-image" 
+							src="{{ url_for('static', filename=category.thumb|url_or_default) }}" 
+							alt="category thumbnail">
+						<span class="text-center category__item-name">
+							{{ category.name }}
+						</span>
+						<a class="category__item-articles-link block blog__item-link-btn" 
+							href="{{ url_for('front.cat.category_articles', alias=company.alias, cat_id=category.id) }}">
+							<small>
+								{{ _('Show') }}
+								{% if category.art_count %}
+								<span class="category__item-articles-count">
+									({{ category.art_count }})
+								</span>
+								{% endif %}
+							</small>
+						</a>
+					</div>
+					{% endfor %}
+				</div>
+			</section>
+		</div>
+		{% set pagin = pagination_categories %}
+		{% set href_url = url_for('front.cat.category_list', alias=company.alias) %}
+		{% include 'partials/pagination.html' %}
+	</div>
 
 {% endblock %}
 

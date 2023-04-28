@@ -5,21 +5,29 @@
 {% endblock %}
 
 {% block content %}
-	<form action="{{ url_for('auth.login.login', alias=company.alias) }}" method="post">
-		<fieldset>
+	<form class="auth-form" action="{{ url_for('auth.login.login', alias=company.alias) }}" method="post">
 			{{ form.hidden_tag() }}
-			{{ form.email.label }}
-			{{ form.email(size=50, class='form-input-field') }}
-			{% set field_errors = form.email.errors %}
-			{% include 'partials/form_field_error.html' %}
-			{{ form.password.label }}
-			{{ form.password(size=50, class='form-input-field') }}
-			{% set field_errors = form.password.errors %}
-			{% include 'partials/form_field_error.html' %}
-			{{ form.remember_me(class='form-check-input') }} 
-			{{ form.remember_me.label }}
-			{{ form.submit(class='submit-btn') }}
-		</fieldset>
+			<div class="form-field">
+				{{ form.email.label }}<br>
+				{{ form.email(class='form-input-field', type='email', 
+					required='required') }}
+				{% set field_errors = form.email.errors %}
+				{% include 'partials/form_field_error.html' %}
+			</div>
+			<div class="form-field">
+				{{ form.password.label }}<br>
+				{{ form.password(class='form-input-field', type='password', 
+					required='required', minlength='8', maxlength='16') }}
+				{% set field_errors = form.password.errors %}
+				{% include 'partials/form_field_error.html' %}
+			</div>
+			<div class="form-field">
+				{{ form.remember_me(class='form-check-input') }} 
+				{{ form.remember_me.label }}
+			</div>
+			<div class="form-field">
+				<button class='submit-btn'>{{ _('Signin') }}</button>
+			</div>
 	</form>
 {% endblock %}
 

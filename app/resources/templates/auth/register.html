@@ -5,27 +5,39 @@
 {% endblock %}
 
 {% block content %}
-	<form action="{{ url_for('auth.register.register', alias=company.alias) }}" method="post">
-		<fieldset>
+	<form class="auth-form" action="{{ url_for('auth.register.register', alias=company.alias) }}" method="post">
 			{{ form.hidden_tag() }}
-			{{ form.username.label }}
-			{{ form.username(size=50, class='form-input-field') }}
-			{% set field_errors = form.username.errors %}
-			{% include 'partials/form_field_error.html' %}
-			{{ form.email.label }}
-			{{ form.email(size=50, class='form-input-field') }}
-			{% set field_errors = form.email.errors %}
-			{% include 'partials/form_field_error.html' %}
-			{{ form.password.label }}
-			{{ form.password(size=50, class='form-input-field') }}
-			{% set field_errors = form.password.errors %}
-			{% include 'partials/form_field_error.html' %}
-			{{ form.repeat_password.label }}
-			{{ form.repeat_password(size=50, class='form-input-field') }} 
-			{% set field_errors = form.repeat_password.errors %}
-			{% include 'partials/form_field_error.html' %}
-			{{ form.submit(class='submit-btn') }}
-		</fieldset>
+			<div class="form-field">
+				{{ form.username.label }}<br>
+				{{ form.username(class='form-input-field', 
+					required='required', minlength='4', maxlength='12') }}
+				{% set field_errors = form.username.errors %}
+				{% include 'partials/form_field_error.html' %}
+			</div>
+			<div class="form-field">
+				{{ form.email.label }}<br>
+				{{ form.email(class='form-input-field', type='email', 
+					required='required') }}
+				{% set field_errors = form.email.errors %}
+				{% include 'partials/form_field_error.html' %}
+			</div>
+			<div class="form-field">
+				{{ form.password.label }}<br>
+				{{ form.password(class='form-input-field',
+					required='required', minlength='8', maxlength='16') }}
+				{% set field_errors = form.password.errors %}
+				{% include 'partials/form_field_error.html' %}
+			</div>
+			<div class="form-field">
+				{{ form.repeat_password.label }}<br>
+				{{ form.repeat_password(class='form-input-field',
+					required='required', minlength='8', maxlength='16') }} 
+				{% set field_errors = form.repeat_password.errors %}
+				{% include 'partials/form_field_error.html' %}
+			</div>
+			<div class="form-field">
+				<button class='submit-btn'>{{ _('SignUp') }}</button>
+			</div>
 	</form>
 {% endblock %}
 

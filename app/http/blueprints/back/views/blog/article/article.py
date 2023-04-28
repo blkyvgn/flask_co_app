@@ -66,8 +66,12 @@ def article_store(alias):
 			category_id = request.form.get('category_id'),
 			company_id = g.company.id
 		)
+		cat = db.get_or_404(Category, int(request.form.get('category_id')))
+		art_count = cat.art_count if cat.art_count is not None else 0
+		cat.art_count = art_count + 1
+		cat.save()
 		if 'thumb' in request.files and request.files['thumb'].filename != '':
-			thumb = article.save_img(request.files['thumb'], width=cfg('IMAGE_WIDTH.THUMBNAIL'))
+			thumb = article.save_img(request.files['thumb'], width=cfg('IMAGE_WIDTH.SHOWCASE'))
 		article.thumb = thumb
 		article.bodies.append(
 			ArticleBody(

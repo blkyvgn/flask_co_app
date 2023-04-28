@@ -1,9 +1,11 @@
 {% with messages = get_flashed_messages(with_categories=true) %}
+<div class="relative">
 	{% if messages %}
-		<ul class=flashes>
+		<ul class="flashes absolute">
 		{% for category, message in messages %}
 			<li class="{{ category }}">{{ message }}</li>
 		{% endfor %}
 		</ul>
 	{% endif %}
+</div>
 {% endwith %}

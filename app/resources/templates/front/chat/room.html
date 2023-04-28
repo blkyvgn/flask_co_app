@@ -5,23 +5,24 @@
 {% endblock %}
 
 {% block content %}
-	<h1>Chat room ({{ company.alias }})</h1>
-
 	<br>
 	<ul>
 		{% for user in users %}
 		<li id="usr-{{user.username}}">{{ user.username }}</li>
 		{% endfor %}
 	</ul>
-	<br>
-		<input id="username" type="text" name="username">
-		<button id="join-btn">Connect</button>
-		<button id="leave-btn">Leave</button>
+	<div class="chat-form">
+		<input id="username" class='form-input-field', type="text" name="username" placeholder="{{ _('User name') }}"
+			required minlength="4" maxlength="12">
+		<button id="join-btn" class="pointer">{{ _('Connect') }}</button>
+		<button id="leave-btn" class="pointer">{{ _('Leave') }}</button>
 		<br>
-		<textarea id="messages"></textarea>
+		<textarea id="messages" class="chat__messages form-input-field" placeholder="{{ _('Messages') }}"></textarea>
 		<br>
-		<input type="text" id="message">
-		<button id="sendMsgBtn">Send</button>
+		<input type="text" id="message" class='form-input-field' placeholder="{{ _('Message') }}"
+			required minlength="8" maxlength="180">
+		<button id="sendMsgBtn" class="pointer">{{ _('Send') }}</button>
+	</div>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
 		<script type="text/javascript" charset="utf-8">
 			var socket = io({autoConnect:false});
@@ -53,10 +54,12 @@
 			let messagesTextArea = document.querySelector('#messages');
 			const sendMsgBtn = document.querySelector('#sendMsgBtn');
 			sendMsgBtn.addEventListener('click', function(){
-				userName = document.querySelector('#username').value;
-				let message = messageInput.value;
-				const data = {room: room_id, username:userName, 'message': message};
-				socket.emit('user_message', data);
+				if (messageInput.checkValidity()) {
+					userName = document.querySelector('#username').value;
+					let message = messageInput.value;
+					const data = {room: room_id, username:userName, 'message': message};
+					socket.emit('user_message', data);
+				}
 			});
 
 			socket.on('chat', function(data){

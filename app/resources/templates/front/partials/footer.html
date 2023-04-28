@@ -1,5 +1,134 @@
 <footer id="footer" class="footer">
-	<small class="pointer" onclick="theme.change('dark')">(dark)</small>
-	<small class="pointer" onclick="theme.change('light')">(light)</small>
-	<small class="pointer" onclick="theme.change()">(>>>)</small>
+	<div class="container">
+		<div class="theme-switcher">
+			<small class="pointer" onclick="theme.change('dark')">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-alt-high" viewBox="0 0 16 16">
+		  			<path d="M8 3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 3zm8 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zm-13.5.5a.5.5 0 0 0 0-1h-2a.5.5 0 0 0 0 1h2zm11.157-6.157a.5.5 0 0 1 0 .707l-1.414 1.414a.5.5 0 1 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm-9.9 2.121a.5.5 0 0 0 .707-.707L3.05 5.343a.5.5 0 1 0-.707.707l1.414 1.414zM8 7a4 4 0 0 0-4 4 .5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5 4 4 0 0 0-4-4zm0 1a3 3 0 0 1 2.959 2.5H5.04A3 3 0 0 1 8 8z"/>
+				</svg>
+			</small>
+			<small class="pointer" onclick="theme.change('light')">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-alt-high-fill" viewBox="0 0 16 16">
+  					<path d="M8 3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 3zm8 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zm-13.5.5a.5.5 0 0 0 0-1h-2a.5.5 0 0 0 0 1h2zm11.157-6.157a.5.5 0 0 1 0 .707l-1.414 1.414a.5.5 0 1 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm-9.9 2.121a.5.5 0 0 0 .707-.707L3.05 5.343a.5.5 0 1 0-.707.707l1.414 1.414zM8 7a4 4 0 0 0-4 4 .5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5 4 4 0 0 0-4-4z"/>
+				</svg>
+			</small>
+			<!-- <small class="pointer" onclick="theme.change()">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+  					<path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+  					<path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+				</svg>
+			</small> -->
+		</div>
+		<nav class="footer__nav">
+			<ul class="footer__nav-list">
+				<li class="footer__nav-item footer__nav-title">
+					<span>{{ _('Products') }}</span>
+				</li>
+				<li class="footer__nav-item">
+					<a class="footer__nav-link" href="#">
+						{{ _('Used') }}
+					</a>
+				</li>
+				<li class="footer__nav-item">
+					<a class="footer__nav-link" href="#">
+						{{ _('New') }}
+					</a>
+				</li>
+				<li class="footer__nav-item">
+					<a class="footer__nav-link" href="#">
+						{{ _('Sell your car') }}
+					</a>
+				</li>
+			</ul>
+			<ul class="footer__nav-list">
+				<li class="footer__nav-item footer__nav-title">
+					<span>{{ _('Resources') }}</span>
+				</li>
+				<li class="footer__nav-item">
+					<a class="footer__nav-link" 
+						href="{{ url_for('front.blog.blog', alias=company.alias) }}">
+						{{ _('Blog') }}
+					</a>
+				</li>
+				<li class="footer__nav-item">
+					<a class="footer__nav-link" href="#">
+						{{ _('FAQ') }}
+					</a>
+				</li>
+				<li class="footer__nav-item">
+					<a class="footer__nav-link" href="{{ url_for('front.home.contact', alias=company.alias) }}">
+						{{ _('Contact us') }}
+					</a>
+				</li>
+			</ul>
+			<ul class="footer__nav-list">
+				<li class="footer__nav-item footer__nav-title">
+					<span>{{ _('Work with TrueCar') }}</span>
+				</li>
+				<li class="footer__nav-item">
+					<a class="footer__nav-link" href="#">
+						{{ _('Dealers') }}
+					</a>
+				</li>
+				<li class="footer__nav-item">
+					<a class="footer__nav-link" href="#">
+						{{ _('Partners') }}
+					</a>
+				</li>
+			</ul>
+			<ul class="footer__nav-list">
+				<li class="footer__nav-item footer__nav-title">
+					<span>{{ _('About') }}</span>
+				</li>
+				<li class="footer__nav-item">
+					<a class="footer__nav-link" href="#">
+						{{ _('About As') }}
+					</a>
+				</li>
+				<li class="footer__nav-item">
+					<a class="footer__nav-link" href="#">
+						{{ _('Team') }}
+					</a>
+				</li>
+				<li class="footer__nav-item">
+					<a class="footer__nav-link" href="#">
+						{{ _('Careers') }}
+					</a>
+				</li>
+			</ul>
+		</nav>
+		<ul class="flex content-center footer_apps">
+			<li class="app__item">
+				<a href="#">
+					<img src="{{ url_for('static', filename='images/appstore.svg') }}" alt="appstore link">
+				</a>
+			</li>
+			<li class="app__item">
+				<a href="#">
+					<img src="{{ url_for('static', filename='images/google_play.svg') }}" alt="google play link">
+				</a>
+			</li>
+		</ul>
+		<div class="flex col footer__copyrite">
+			<p class="footer__copyrite-text">
+				{{ _('For questions about the TrueCar Auto Buying Service please call 1-888-878-3227.
+				Certified Dealers are contractually obligated by TrueCar to meet certain customer service requirements and complete the TrueCar Dealer Certification Program.') }}
+			</p>
+			<p class="footer__copyrite-text">
+				{{ _('TrueCar does not broker, sell, or lease motor vehicles. Unless otherwise noted, all vehicles shown on this website are offered for sale by licensed motor vehicle dealers. All vehicles are subject to prior sale. By accessing this website, you agree to the TrueCar Terms of Service and Privacy Policy.') }}
+			</p>
+		</div>
+		<nav class="footer__copyrite__nav">
+			<ul class="flex content-center footer__copyrite__nav-list">
+				<li class="footer__copyrite__nav-item">
+					{{ _('Terms of Services') }}
+				</li>
+				<li class="footer__copyrite__nav-item">
+					{{ _('Privacy Policy') }}
+				</li>
+				<li class="footer__copyrite__nav-item">
+					{{ _('Do Not Sell My Personal Information') }}
+				</li>
+			</ul>
+		</nav>
+	</div>
 </footer>

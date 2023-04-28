@@ -5,27 +5,46 @@
 {% endblock %}
 
 {% block content %}
-	<h1>{{ _('Category articles') }}</h1>
 	
-	{% set item, articles_count = category %}
-	<img width="80" height="80" src="{{ url_for('static', filename=item.thumb|url_or_default) }}">
-	<strong>{{ item.name|in_lang_or_default(current_language) }}</strong>
-	{% if articles_count %}
-		<span>({{ articles_count }})</span>
-	{% endif %}
+	<div class="flex col gap-30">
+		{% set item, articles_count = category %}
+		<h2 class="text-center">{{ item.name }}</h2>
+		<img class="align-self-end category__image" src="{{ url_for('static', filename=item.thumb|url_or_default) }}">
+	</div>
 
-	<h4>{{ _('Articles') }}</h4>
-	{% for article in pagination_articles.items %}
-		<img width="80" height="80" src="{{ url_for('static', filename=article.thumb|url_or_default) }}">
-		<strong>{{ article.name|in_lang_or_default(current_language) }}</strong>
-		<a href="{{ url_for('front.art.article_item', alias=company.alias, art_id=article.id) }}">
-			<strong>{{ _('Show') }}</strong>
-		</a>
-	{% endfor %}
-
-	{% set pagin = pagination_articles %}
-	{% set href_url = url_for('front.cat.category_articles', alias=company.alias, cat_id=item.id) %}
-	{% include 'partials/pagination.html' %}
+	<div class="blog">
+		<h2 class="text-center">{{ _('Articles') }}</h2>
+		<div class="container">
+			<section class="blog__articles">
+				<div class="blog_articles_items">
+					{% for article in pagination_articles.items %}
+					<div class="article__item">
+						<img class="article__item-image" 
+							src="{{ url_for('static', filename=article.thumb|url_or_default) }}" 
+							alt="category thumbnail">
+						<span class="text-center article__item-name">
+							{{ article.name }}
+						</span>
+						<a class="article__item-article-link blog__item-link-btn" 
+							href="{{ url_for('front.art.article_item', alias=company.alias, art_id=article.id) }}">
+							<small>
+								{{ _('Show') }}
+								{% if article.comm_count %}
+								<span class="article__item-comments-count">
+									({{ article.comm_count }})
+								</span>
+								{% endif %}
+							</small>
+						</a>
+					</div>
+					{% endfor %}
+				</div>
+			</section>
+		</div>
+		{% set pagin = pagination_articles %}
+		{% set href_url = url_for('front.cat.category_articles', alias=company.alias, cat_id=item.id) %}
+		{% include 'partials/pagination.html' %}
+	</div>
 
 {% endblock %}
 
