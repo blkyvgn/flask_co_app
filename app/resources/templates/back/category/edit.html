@@ -5,40 +5,57 @@
 {% endblock %}
 
 {% block content %}
+<section class="dashboard">
+	<div class="container">
 	<h1>{{ _('Create') }}</h1>
 	<a href="{{ url_for('back.cat.category_list', alias=company.alias) }}">
 		<strong>{{ _('Categories') }}</strong>
 	</a>
-	<form action="{{ url_for('back.cat.category_update', alias=company.alias, cat_id=category.id) }}" 
+	<form class="adm-form" action="{{ url_for('back.cat.category_update', alias=company.alias, cat_id=category.id) }}" 
 		method="post" enctype="multipart/form-data">
 		<fieldset>
 			{{ form.hidden_tag() }}
+			<!-- <div class="form-field">
 			{#{{ form.name.label }}
-			{{ form.name(size=50, class='form-input-field') }}#}
-			<input type="text" name="{{ form.name.name }}" value="{{ form.name.data }}">
-			{% set field_errors = form.name.errors %}
-			{% include 'partials/form_field_error.html' %}
-			{{ form.thumb.label }}
-			{{ form.thumb(class='form-input-field') }}
-			{#{{ form.short_desc.label }}
-			{{ form.short_desc(size=50, class='form-input-field') }}#}
-			<textarea name="{{ form.short_desc.name }}">{{ form.short_desc.data }}</textarea>
-			{% set field_errors = form.short_desc.errors %}
-			{% include 'partials/form_field_error.html' %}
-			{{ form.is_valid(class='form-check-input') }} 
-			{{ form.is_valid.label }}
-			{#{{ form.parent_id.label }}
-			{{ form.parent_id(class='form-input-field') }}#}
-			<select id="{{ form.parent_id.id }}" name="{{ form.parent_id.name }}">
-				{% for key, value, checked in form.parent_id.iter_choices() %}
-        			<option value="{{ key }}" {% if checked %}selected{% endif %}>
-        				{{ value }}
-        			</option>
-    			{% endfor %}
-			</select>
-			<button type="submit">{{ _('Edit') }}</button>
+			{{ form.name(class='form-input-field') }}#}
+			</div> -->
+			<div class="form-field">
+				<input type="text" name="{{ form.name.name }}" value="{{ form.name.data }}">
+				{% set field_errors = form.name.errors %}
+				{% include 'partials/form_field_error.html' %}
+			</div>
+			<div class="form-field">
+				{{ form.thumb.label }}
+				{{ form.thumb(class='form-input-field') }}
+			</div>
+			<!-- {#{{ form.short_desc.label }}
+			{{ form.short_desc(size=50, class='form-input-field') }}#} -->
+			<div class="form-field">
+				<textarea name="{{ form.short_desc.name }}">{{ form.short_desc.data }}</textarea>
+				{% set field_errors = form.short_desc.errors %}
+				{% include 'partials/form_field_error.html' %}
+			<div class="form-field">
+				{{ form.is_valid(class='form-check-input') }} 
+				{{ form.is_valid.label }}
+			</div>
+			<div class="form-field">
+				{#{{ form.parent_id.label }}
+				{{ form.parent_id(class='form-input-field') }}#}
+				<select id="{{ form.parent_id.id }}" name="{{ form.parent_id.name }}">
+					{% for key, value, checked in form.parent_id.iter_choices() %}
+	        			<option value="{{ key }}" {% if checked %}selected{% endif %}>
+	        				{{ value }}
+	        			</option>
+	    			{% endfor %}
+				</select>
+			</div>
+			<div class="form-field">
+				<button type="submit" class="submit-btn">{{ _('Edit') }}</button>
+			</div>
 		</fieldset>
 	</form>
+	</div>
+</section>
 {% endblock %}
 
 {% block footer %}

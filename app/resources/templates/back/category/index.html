@@ -5,8 +5,14 @@
 {% endblock %}
 
 {% block content %}
-	<h1>{{ _('Categories') }}</h1>
-	<a class="block" href="{{ url_for('back.cat.category_create', alias=company.alias) }}">{{ _('New') }}</a>
+<section class="dashboard">
+	<div class="container">
+		<a class="adm-new-btn" href="{{ url_for('back.cat.category_create', alias=company.alias) }}">
+			{{ _('New') }}
+		</a>
+
+	<!-- <h1>{{ _('Categories') }}</h1>
+	<a class="blog__item-link-btn" href="{{ url_for('back.cat.category_create', alias=company.alias) }}">{{ _('New') }}</a>
 
 	{% for category in pagination_categories.items %} 
 		<img width="80" height="80" src="{{ url_for('static', filename=category.thumb|url_or_default) }}">
@@ -21,7 +27,37 @@
 	
 	{% set pagin = pagination_categories %}
 	{% set href_url = url_for('back.cat.category_list', alias=company.alias) %}
-	{% include 'partials/pagination.html' %}
+	{% include 'partials/pagination.html' %} -->
+
+		<h2 class="text-center">{{ _('Categories') }}</h2>
+		<section class="blog__categories">
+			<div class="blog_categories_items">
+				{% for category in pagination_categories.items %}
+				<div class="category__item">
+					<img class="category__item-image" 
+						src="{{ url_for('static', filename=category.thumb|url_or_default) }}" 
+						alt="category thumbnail">
+					<span class="text-center category__item-name">
+						{{ category.name }}
+					</span>
+
+					<a class="category__item-articles-link block blog__item-link-btn"
+						href="{{ url_for('back.cat.category_edit', alias=company.alias, cat_id=category.id) }}">
+						{{ _('Edit') }}
+					</a>
+					<a class="category__item-articles-link block blog__item-link-btn"
+						href="{{ url_for('back.cat.category_destroy', alias=company.alias, cat_id=category.id) }}">
+						{{ _('Delete') }}
+					</a>
+				</div>
+				{% endfor %}
+			</div>
+		</section>
+		{% set pagin = pagination_categories %}
+		{% set href_url = url_for('back.cat.category_list', alias=company.alias) %}
+		{% include 'partials/pagination.html' %}
+	</div>
+</section>
 
 {% endblock %}
 

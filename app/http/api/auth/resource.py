@@ -69,7 +69,6 @@ class AccountLogoutResource(Resource):
 
 
 class TokenRefreshResource(Resource):
-	# @jwt_refresh_token_required
 	@jwt_required(refresh=True)
 	def post(self, alias: str):
 		current_user = get_jwt_identity()

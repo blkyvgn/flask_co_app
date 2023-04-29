@@ -9,6 +9,7 @@ from progress.bar import Bar
 from app.vendors.helpers.validators import (
 	email_validation_check,
 	passwd_validation_check,
+	alias_validation_check,
 )
 from app.models import ( 
 	Account, 
@@ -55,3 +56,25 @@ def show_users():
 		print(users)
 	except exc.SQLAlchemyError as e: 
 		print(colored(f'Error while show users:\n {e})', 'red'))
+
+
+company_cli = AppGroup('company')
+@company_cli.command('create') 
+@click.argument('alias') 
+def create_company(alias):
+	if not alias_validation_check(alias):
+		print(colored('Not valid alias', 'red')) 
+		return
+
+	company = db.session.execute(db.select(Company).filter_by(alias=alias)).scalar()
+	if company is not None:
+		print(colored('Company with such alias already exist', 'red')) 
+		return
+
+	try:
+		company = Company(alias=alias, is_valid=True) 
+		db.session.add(company)
+		db.session.commit()
+		print(colored(f'Company added: {alias}', 'green'))
+	except exc.SQLAlchemyError as e: 
+		print(colored(f'Error while creating company: {alias}\n {e})', 'red'))

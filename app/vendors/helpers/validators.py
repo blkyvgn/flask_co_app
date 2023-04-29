@@ -14,7 +14,7 @@ def email_validation_check(email, regex=email_regex):
 # At least one letter, number or symbol (@$!%*#?&). Min 8 max 16.
 passwd_regex = re.compile(r'^(?=.*?[a-z])(?=.*?[A-Z])(?=.*\d)(?=.*?[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$')
 # for test only
-passwd_regex = re.compile(r'^[ 0-9]+$')
+passwd_regex = re.compile(r'^[0-9]+$')
 # -------------
 def passwd_validation_check(passwd, regex=passwd_regex):
 	if re.fullmatch(regex, passwd) is None:
@@ -23,7 +23,7 @@ def passwd_validation_check(passwd, regex=passwd_regex):
 
 
 # for test only
-birthdate_regex = re.compile(r'^[ 0-9]+$')
+birthdate_regex = re.compile(r'^[0-9]+$')
 # -------------
 def birthdate_validation_check(date, regex=birthdate_regex):
 	if re.fullmatch(regex, date) is None:
@@ -32,13 +32,20 @@ def birthdate_validation_check(date, regex=birthdate_regex):
 
 
 # for test only
-phone_regex = re.compile(r'^[ 0-9]+$')
+phone_regex = re.compile(r'^[0-9]+$')
 # -------------
 def phone_validation_check(phone, regex=phone_regex):
 	if re.fullmatch(regex, phone) is None:
 		return False
 	return True
 
+
+alias_regex = re.compile(r'^[a-zA-Z-_]{2,20}$')
+
+def alias_validation_check(alias, regex=alias_regex):
+	if re.fullmatch(regex, alias) is None:
+		return False
+	return True
 
 def required_check(val, *args, **kwargs):
 	if not val:

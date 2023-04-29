@@ -169,6 +169,10 @@ input:invalid {
 .float-right {
   float: right;
 }
+.my-120 {
+  margin-top: 120px;
+  margin-bottom: 129px;
+}
 .container {
   margin: 0 auto;
   max-width: var(--max-content-width);
@@ -204,6 +208,9 @@ input:invalid {
   color: var(--nav-color);
   text-transform: uppercase;
   font-weight: var(--font-weight-bold);
+}
+.logo_img {
+  width: 80px;
 }
 .top {
   position: absolute;
@@ -307,7 +314,8 @@ input:invalid {
 }
 .theme-switcher {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
+/*  justify-content: right;*/
   gap: 12px;
 }
 .why-lease {
@@ -550,6 +558,37 @@ input:invalid {
 .article__body {
   padding: 50px;
   margin-bottom: 40px;
+}
+.dashboard {
+  margin-top: 80px;
+  margin-bottom: 120px;
+}
+.dashboard-item {
+  border: 1px solid #0066FF;
+  padding: 120px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: var(--font-weight-bold);
+}
+.adm-form {
+  margin: 100px auto 100px;
+  text-align: center;
+  max-width: 800px;
+  min-width: 300px;
+  padding: 20px;
+  font-size: 24px;
+  font-weight: var(--font-weight-bold);
+}
+.adm-new-btn {
+  float: right;
+  background-color: #0066FF;
+  color: var(--nav-color);
+  padding: 14px;
+  max-width: 100px;
+  width: 100%;
+  font-size: 18px;
+  font-weight: var(--font-weight-bold);
+  text-align: center;
 }
 
 

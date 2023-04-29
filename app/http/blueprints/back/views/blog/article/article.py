@@ -176,5 +176,5 @@ def article_update(alias, art_id):
 def article_destroy(alias, art_id):
 	gate.allow(['access_admin_pages'], 403)
 	article = db.get_or_404(Article, int(art_id))
-	article.destroy()
+	article.delete()
 	return redirect(url_for('back.art.article_list', alias=alias))

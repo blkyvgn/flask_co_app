@@ -5,15 +5,19 @@
 {% endblock %}
 
 {% block content %}
-	<h1>Dashboard</h1>
-
-	<a href="{{ url_for('back.cat.category_list', alias=company.alias) }}">
-		<strong>{{ _('Categories') }}</strong>
-	</a>
-	<a class="block" href="{{ url_for('back.art.article_list', alias=company.alias) }}">
-		<strong>{{ _('Articles') }}</strong>
-	</a>
-
+<section class="dashboard">
+	<div class="container">
+		<h1 class="text-center">{{ _('Dashboard') }}</h1>
+		<div class="flex content-center gap-30 my-120">
+			<a class="dashboard-item" href="{{ url_for('back.cat.category_list', alias=company.alias) }}">
+				<strong>{{ _('Categories') }}</strong>
+			</a>
+			<a class="dashboard-item" href="{{ url_for('back.art.article_list', alias=company.alias) }}">
+				<strong>{{ _('Articles') }}</strong>
+			</a>
+		</div>
+	</div>
+</section>
 {% endblock %}
 
 {% block footer %}

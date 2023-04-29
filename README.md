@@ -1,5 +1,5 @@
 # flask_co_app
-$ mkdir -p public/storage log\
+$ mkdir -p public/media log\
 (For local config data: add .env in root directory)
 
 # database
@@ -7,6 +7,7 @@ flask db init\
 flask db migrate\
 flask db upgrade\
 flask user create some_mail some_password
+flask company create some_alias
 
 # locale
 pybabel extract -F babel.cfg -k _l -o app/resources/translations/messages.pot app\

@@ -1,29 +1,36 @@
-
-<input type="text" name="name" value="{{ item.name|default('') }}">
-<small>{{ old_errors.name|default('') }}</small>
-
-<textarea name="short_desc">{{ item.short_desc|default('') }}</textarea>
-<small>{{ old_errors.short_desc|default('') }}</small>
-
-<img width="80" height="80" src="{{ url_for('static', filename=item.thumb|url_or_default) }}">
-
-<input type=file name="thumb" multiple>
-<small>{{ old_errors.thumb|default('') }}</small>
-
-<input type="checkbox" id="is_valid" name="is_valid" {% if item.is_valid %} checked {% endif %}>
-<label for="is_valid">{{ _('Valid') }}</label>
-
-<select name="category_id">
-	{% for id, name in categories  %}
-	<option value="{{ id }}" 
-		{% if item.category_id and item.category_id|int == id %} selected {% endif %}
-	>
-		{{ name }}
-	</option>
-	{% endfor %}
-</select>
-
-<textarea id="summernote" name="body">{{ item.body|safe }}</textarea>
+<div class="form-field">
+    <input class="form-input-field" type="text" name="name" value="{{ item.name|default('') }}">
+    <small>{{ old_errors.name|default('') }}</small>
+</div>
+<div class="form-field">
+    <textarea class="form-input-field" name="short_desc">{{ item.short_desc|default('') }}</textarea>
+    <small>{{ old_errors.short_desc|default('') }}</small>
+</div>
+<div class="form-field">
+    <img width="220" src="{{ url_for('static', filename=item.thumb|url_or_default) }}">
+</div>
+<div class="form-field">
+    <input class="form-input-field" type=file name="thumb" multiple>
+    <small>{{ old_errors.thumb|default('') }}</small>
+</div>
+<div class="form-field">
+    <input class="form-input-field" type="checkbox" id="is_valid" name="is_valid" {% if item.is_valid %} checked {% endif %}>
+    <label for="is_valid">{{ _('Valid') }}</label>
+</div>
+<div class="form-field">
+    <select name="category_id">
+    	{% for id, name in categories  %}
+    	<option value="{{ id }}" 
+    		{% if item.category_id and item.category_id|int == id %} selected {% endif %}
+    	>
+    		{{ name }}
+    	</option>
+    	{% endfor %}
+    </select>
+</div>
+<div class="form-field">
+    <textarea class="form-input-field" id="summernote" name="body">{{ item.body|safe }}</textarea>
+</div>
 
 {% block page_js_script %}
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

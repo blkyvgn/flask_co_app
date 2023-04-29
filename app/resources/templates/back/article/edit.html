@@ -5,19 +5,22 @@
 {% endblock %}
 
 {% block content %}
-	<h1>{{ _('Edit') }}</h1>
+<section class="dashboard">
+	<div class="container">
+	<h1 class="text-center">{{ _('Edit') }}</h1>
 	<a class="block" href="{{ url_for('back.art.article_list', alias=company.alias) }}">
 		<strong>{{ _('Articles') }}</strong>
 	</a>
 
 	{% set item = old|default(article, true) %}
-	<form action="{{ url_for('back.art.article_update', alias=company.alias,  art_id=article.id) }}" 
+	<form class="adm-form" action="{{ url_for('back.art.article_update', alias=company.alias,  art_id=article.id) }}" 
 		method="post" enctype="multipart/form-data">
 		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 		{% include 'back/article/partials/form.html' %}
-		<button type="submit">{{ _('Edit') }}</button>
+		<button type="submit" class="submit-btn">{{ _('Edit') }}</button>
 	</form>
-
+	</div>
+</section>
 {% endblock %}
 
 {% block footer %}

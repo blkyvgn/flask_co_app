@@ -144,5 +144,5 @@ def category_update(alias, cat_id):
 def category_destroy(alias, cat_id):
 	gate.allow(['access_admin_pages'], 403)
 	category = db.get_or_404(Category, int(cat_id))
-	category.destroy()
+	category.delete()
 	return redirect(url_for('back.cat.category_list', alias=alias))

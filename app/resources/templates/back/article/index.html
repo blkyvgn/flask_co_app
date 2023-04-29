@@ -5,24 +5,50 @@
 {% endblock %}
 
 {% block content %}
-	<h1>{{ _('Articles') }}</h1>
-	<a class="block" href="{{ url_for('back.art.article_create', alias=company.alias) }}">{{ _('New') }}</a>
+<section class="dashboard">
+	<div class="container">
+	<h1 class="text-center">{{ _('Articles') }}</h1>
+	<a class="adm-new-btn" href="{{ url_for('back.art.article_create', alias=company.alias) }}">{{ _('New') }}</a>
 
-	{% for article in pagination_articles.items %} 
+	<!-- {% for article in pagination_articles.items %} 
 		<img width="80" height="80" src="{{ url_for('static', filename=article.thumb|url_or_default) }}">
 		<strong>{{ article.name }}</strong>
 		<a href="{{ url_for('back.art.article_edit', alias=company.alias,  art_id=article.id) }}">
-			{{ _('Edir') }}
+			{{ _('Edit') }}
 		</a>
 		<a href="{{ url_for('back.art.article_destroy', alias=company.alias,  art_id=article.id) }}">
 			{{ _('Delete') }}
 		</a>
-	{% endfor %}
+	{% endfor %} -->
+
+	<section class="blog__articles">
+		<div class="blog_articles_items">
+			{% for article in pagination_articles.items %}
+			<div class="article__item">
+				<img class="article__item-image" 
+					src="{{ url_for('static', filename=article.thumb|url_or_default) }}" 
+					alt="category thumbnail">
+				<span class="text-center article__item-name">
+					{{ article.name }}
+				</span>
+				<a class="article__item-article-link blog__item-link-btn" 
+					href="{{ url_for('back.art.article_edit', alias=company.alias,  art_id=article.id) }}">
+					{{ _('Edit') }}
+				</a>
+				<a class="article__item-article-link blog__item-link-btn" 
+					href="{{ url_for('back.art.article_destroy', alias=company.alias,  art_id=article.id) }}">
+					{{ _('Delete') }}
+				</a>
+			</div>
+			{% endfor %}
+		</div>
+	</section>
 
 	{% set pagin = pagination_articles %}
 	{% set href_url = url_for('back.art.article_list', alias=company.alias) %}
 	{% include 'partials/pagination.html' %}
-
+	</div>
+</section>
 {% endblock %}
 
 {% block footer %}
