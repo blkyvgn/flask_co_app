@@ -1,4 +1,6 @@
+from flask import request 
 from flask_restful import Resource, reqparse
+from werkzeug.security import generate_password_hash
 from flask_babel import lazy_gettext as _l 
 from werkzeug.security import (
 	check_password_hash,
@@ -36,13 +38,22 @@ class AccountRegisterResource(Resource):
 			user_data = account_schema.load(request.get_json())
 		except ValidationError as err:
 			return err.messages, 400
-		if Account.get_first_by_filter(username=user_data['username']):
+		account = Account.get_first_by_filter(username=user_data['username'])
+		if account:
 			return {'message': 'A account with that username already exists.'}, 400
+		account = Account(
+			username =user_data['username'],
+			email = user_data['email'],
+			password = generate_password_hash(user_data['password']),
+			is_activated = False,
+		)
 		account.save()
+		account.send_register_mail()
 		return {'message': 'User created successfully.'}, 201
 
 
 class AccountLoginResource(Resource):
+	# def post(self, alias: str):
 	def post(self, alias: str):
 		try:
 			user_json = request.get_json()
@@ -50,7 +61,7 @@ class AccountLoginResource(Resource):
 		except ValidationError as err:
 			return err.messages, 400
 		account = Account.get_first_by_filter(username=user_data['username'])
-		if account and account.password == user_data['password']:
+		if account and account.check_passwd(user_data['password']):
 			if account.activated:
 				access_token = create_access_token(identity=account.id, fresh=True)
 				refresh_token = create_refresh_token(account.id)

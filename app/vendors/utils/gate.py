@@ -7,11 +7,11 @@ def gate_utility():
 		pass
 		
 	def allow(perms=[], abort_key=403):
-		if g.user.is_anonymous or not g.user.can('allow', perms):
+		if g.user.is_anonymous or not g.user.can_allow(perms):
 			return abort(abort_key) 
 			
 	def deny(perms=[], abort_key=403): 
-		if g.user.is_anonymous or g.user.can('deny', perms):
+		if g.user.is_anonymous or not g.user.can_deny(perms):
 			return abort(abort_key) 
 
 	_gate.allow = allow 

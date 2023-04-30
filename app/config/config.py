@@ -22,6 +22,10 @@ class DevelopmentConfig(Config):
         'access',
         'refresh',
     ]
+    JWT_SECRET_KEY='t1NP63m4wnBg6nyHYKfmc2TpCOGI4nss'
+    # JWT_TOKEN_LOCATION='cookies'
+    # JWT_COOKIE_CSRF_PROTECT = True
+    # JWT_CSRF_CHECK_FORM = True
 
     LOGIN_MESSAGE = None
 

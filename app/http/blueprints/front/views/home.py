@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, abort, request, g
-from app.extensions import db, cache
+from app.vendors.helpers.translation import tr
 from app.vendors.helpers.config import cfg
+from app.extensions import db, cache
 from sqlalchemy import (
 	func, 
 	desc,
@@ -18,6 +19,7 @@ bp_home = Blueprint('home', __name__, url_prefix='/')
 @bp_home.route('/home', methods=['GET'])
 # @cache.cached(timeout=cfg('CACHE_TIMEOUT.DAY'))
 def home(alias):
+	# print(tr('article', lang=g.current_language))
 	select_articles = db.select(
 			Article,
 			func.count(Comment.id).label('comments_count')

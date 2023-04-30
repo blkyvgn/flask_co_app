@@ -38,21 +38,22 @@ def register(alias):
 			is_activated = False,
 		)
 		new_user.save()
-
-		try:
-			# send_async_email.delay(email_data)
-			email_data = get_register_mail(new_user, '/srv/mail/register.html')
-			send_email.apply_async(
-				args=[email_data], 
-				countdown=60
-			)
-			flash(_l(u'Check your mail', category='success'))
-			signup_signal.send(current_app, username=new_user.username)
-		except:
-			print('----------------------------------------------------')
-			print(get_register_mail(new_user, '/srv/mail/register.html'))
-			print('----------------------------------------------------')
-			flash(_l(u'Email not sent', category='warning'))
+		new_user.send_register_mail()
+		
+		# try:
+		# 	# send_async_email.delay(email_data)
+		# 	email_data = get_register_mail(new_user, '/srv/mail/register.html')
+		# 	send_email.apply_async(
+		# 		args=[email_data], 
+		# 		countdown=60
+		# 	)
+		# 	flash(_l(u'Check your mail', category='success'))
+		# 	signup_signal.send(current_app, username=new_user.username)
+		# except:
+		# 	print('----------------------------------------------------')
+		# 	print(get_register_mail(new_user, '/srv/mail/register.html'))
+		# 	print('----------------------------------------------------')
+		# 	flash(_l(u'Email not sent', category='warning'))
 
 		return redirect(url_for('front.home.home', alias=alias))
 	return render_template('auth/register.html', 

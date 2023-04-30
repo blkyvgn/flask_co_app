@@ -1,8 +1,6 @@
 from flask import (session, g,)
 
-
 __all__ = ('injects_context', )
-
 
 
 def injects_context(app):

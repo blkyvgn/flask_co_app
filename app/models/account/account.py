@@ -1,11 +1,19 @@
-from flask_login import UserMixin
+from app.vendors.helpers.mail import get_register_mail
+from app.services.celery.tasks import send_email
 from app.vendors.base.model import BaseModel
+from flask_login import UserMixin
+from flask import current_app
 from app.extensions import db
 from hashlib import md5
 import base64
 from werkzeug.security import (
 	generate_password_hash, 
 	check_password_hash,
+)
+from app.events.auth import ( 
+	signin_signal,
+	signup_signal, 
+	signout_signal, 
 )
 from app.vendors.mixins.model import (
 	ValidMixin,
@@ -61,16 +69,11 @@ class Account(BaseModel, UserMixin, ValidMixin, HelpersMixin, TimestampsMixin):
 		''' Check User Password '''
 		return check_password_hash(self.password, password)
 
-	def can(self, key='allow', perm_keys=[]):
-		# ''' if all from list of permissions '''
-		# can = set(self.permissions) <= set(perm_keys)
-		# return can if key == 'allow' else not can
-		if key == 'allow':
-			''' if all from list of permissions '''
-			return set(self.permissions) <= set(perm_keys)
-		else:
-			''' if one from list of permissions '''
-			return  len(set(self.permissions) & set(perm_keys)) != 0
+	def can_allow(self, perm_keys=[]):
+		return set(perm_keys).issubset(set(self.permissions)):
+
+	def can_deny(self, perm_keys=[]):
+		return  len(set(perm_keys).intersection(set(self.permissions))) == 0:
 		
 
 	@classmethod
@@ -84,4 +87,20 @@ class Account(BaseModel, UserMixin, ValidMixin, HelpersMixin, TimestampsMixin):
 
 	def json(self):
 		return {"id": self.id, "username": self.username}
+
+	def send_register_mail(self):
+		try:
+			# send_async_email.delay(email_data)
+			email_data = get_register_mail(self, '/srv/mail/register.html')
+			send_email.apply_async(
+				args=[email_data], 
+				countdown=60
+			)
+			signup_signal.send(current_app, username=self.username)
+		except:
+			print('----------------------------------------------------')
+			print(get_register_mail(self, '/srv/mail/register.html'))
+			print('----------------------------------------------------')
+			flash(_l(u'Email not sent', category='warning'))
+
 
