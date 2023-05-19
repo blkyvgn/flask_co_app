@@ -70,10 +70,10 @@ class Account(BaseModel, UserMixin, ValidMixin, HelpersMixin, TimestampsMixin):
 		return check_password_hash(self.password, password)
 
 	def can_allow(self, perm_keys=[]):
-		return set(perm_keys).issubset(set(self.permissions)):
+		return set(perm_keys).issubset(set(self.permissions))
 
 	def can_deny(self, perm_keys=[]):
-		return  len(set(perm_keys).intersection(set(self.permissions))) == 0:
+		return  len(set(perm_keys).intersection(set(self.permissions))) == 0
 		
 
 	@classmethod
